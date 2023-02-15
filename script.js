@@ -7,7 +7,7 @@ function checkShortcut(keyboardEvent) {
     }
     if (keyboardEvent.ctrlKey && keyboardEvent.code === 'KeyC') {
         if(keyboardEvent.altKey){
-			toClipboard(link.innerText.trim())
+			toClipboard(link.innerText)
         }
 		else{
 			toClipboard(link.href)
@@ -35,10 +35,13 @@ function getLink(e){
 
 chrome.runtime.onMessage.addListener((e) => {
 	if(e.type == 'link'){
-		toClipboard(target.closest('a').innerText.trim())
+		toClipboard(target.closest('a').innerText)
 	}
 })
 
 function toClipboard(text){
-  navigator.clipboard.writeText(text).then(() => {})
+	if(text && text.trim() != '')
+	{
+		navigator.clipboard.writeText(text.trim()).then(() => {})
+	}
 }
