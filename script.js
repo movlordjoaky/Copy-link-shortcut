@@ -7,16 +7,16 @@ function checkShortcut(keyboardEvent) {
     }
     if (keyboardEvent.ctrlKey && keyboardEvent.code === 'KeyC') {
         if(keyboardEvent.altKey){
-			navigator.clipboard.writeText(link.innerText.trim())
+			toClipboard(link.innerText.trim())
         }
 		else{
-			navigator.clipboard.writeText(link.href)
+			toClipboard(link.href)
 		}
     }
 }
 
-function checkLink(){
-	link = this
+function checkLink(e){
+	link = e.target.closest('a')
     document.addEventListener('keydown', checkShortcut)
 }
 
@@ -26,12 +26,12 @@ function uncheckLink(){
 }
 
 $(function() {
-    $("html a").mouseenter(checkLink).mouseleave(uncheckLink)
+    $("html").on('mouseenter', 'a', checkLink).on('mouseleave', 'a', uncheckLink).on('contextmenu', 'a', getLink)
 })
 
-document.addEventListener('contextmenu', (e) => {
-  target = e.target
-})
+function getLink(e){
+	target = e.target
+}
 
 chrome.runtime.onMessage.addListener((e) => {
 	if(e.type == 'link'){
