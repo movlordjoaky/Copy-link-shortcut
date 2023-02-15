@@ -1,0 +1,15 @@
+{
+     "name": "Copy link shortcut",
+     "version": "0.1",
+     "manifest_version": 3,
+     "content_scripts": [{
+         "js": ["jquery.min.js", "script.js"],
+         "matches": ["*://*/*"]
+      }],
+	"icons": {
+		"16": "icon128.png",
+		"32": "icon128.png",
+		"48": "icon128.png",
+    	"128": "icon128.png"
+	}
+}
