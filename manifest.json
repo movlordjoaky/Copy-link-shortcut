@@ -1,15 +1,16 @@
 {
      "name": "Copy link shortcut",
      "version": "0.1",
+	 "description": "Creates shortcut for copy link's href and text",
      "manifest_version": 3,
      "content_scripts": [{
          "js": ["jquery.min.js", "script.js"],
          "matches": ["*://*/*"]
       }],
 	"icons": {
-		"16": "icon128.png",
-		"32": "icon128.png",
-		"48": "icon128.png",
+		"16": "icon16.png",
+		"32": "icon32.png",
+		"48": "icon48.png",
     	"128": "icon128.png"
 	}
 }
