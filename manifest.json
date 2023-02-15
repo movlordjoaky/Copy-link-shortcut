@@ -1,12 +1,18 @@
 {
      "name": "Copy link shortcut",
-     "version": "0.1",
-	 "description": "Creates shortcut for copy link's href and text",
+     "version": "0.2",
+	 "description": "Creates shortcut for copy link's address and text",
      "manifest_version": 3,
      "content_scripts": [{
          "js": ["jquery.min.js", "script.js"],
          "matches": ["*://*/*"]
       }],
+	 "background": {
+		"service_worker": "service_worker.js"
+	 },
+	"permissions": [
+		"contextMenus"
+	],
 	"icons": {
 		"16": "icon16.png",
 		"32": "icon32.png",

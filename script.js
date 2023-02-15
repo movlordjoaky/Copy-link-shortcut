@@ -1,4 +1,4 @@
-let link = null
+let link = null, target = null
 
 function checkShortcut(keyboardEvent) {
     if (keyboardEvent.repeat) return
@@ -7,7 +7,7 @@ function checkShortcut(keyboardEvent) {
     }
     if (keyboardEvent.ctrlKey && keyboardEvent.code === 'KeyC') {
         if(keyboardEvent.altKey){
-			navigator.clipboard.writeText(link.innerText)
+			navigator.clipboard.writeText(link.innerText.trim())
         }
 		else{
 			navigator.clipboard.writeText(link.href)
@@ -26,5 +26,19 @@ function uncheckLink(){
 }
 
 $(function() {
-    $("html").on("mouseenter", "a", checkLink).on("mouseleave", "a", uncheckLink)
+    $("html a").mouseenter(checkLink).mouseleave(uncheckLink)
 })
+
+document.addEventListener('contextmenu', (e) => {
+  target = e.target
+})
+
+chrome.runtime.onMessage.addListener((e) => {
+	if(e.type == 'link'){
+		toClipboard(target.closest('a').innerText.trim())
+	}
+})
+
+function toClipboard(text){
+  navigator.clipboard.writeText(text).then(() => {})
+}
